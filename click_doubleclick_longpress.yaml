@@ -24,15 +24,21 @@ binary_sensor:
       number: 14
       mode: INPUT_PULLUP
       inverted: true
-    on_press:
+    on_double_click:
       then:
-        - logger.log: Hello World
+        - logger.log: double clicked!
+    # on_click:
+    #   then:
+    #     - logger.log: clicked!
+    # on_press:
+    #   then:
+    #     - logger.log: Hello World
           
-        - switch.turn_on: red_led_switch
-    on_release:
-      then:
-        - delay: 2s
-        - switch.turn_off: red_led_switch  
+    #     - switch.turn_on: red_led_switch
+    # on_release:
+    #   then:
+    #     - delay: 2s
+    #     - switch.turn_off: red_led_switch  
 switch:
   - platform: template
     id: red_led_switch
@@ -43,10 +49,11 @@ switch:
         return false;
       }
     turn_on_action:
-      - output.turn_on: red_led
+      - logger.log: switch on
 
     turn_off_action:
-      - output.turn_off: red_led
+      - logger.log: switch off
+  
 
 
 
