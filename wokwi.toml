@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = '.esphome/build/click-doubleclick-longpress/.pioenvs/click-doubleclick-longpress/firmware.elf'
+elf = '.esphome/build/click-doubleclick-longpress/.pioenvs/click-doubleclick-longpress/firmware.elf'

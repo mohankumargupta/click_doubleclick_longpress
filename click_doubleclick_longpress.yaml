@@ -1,0 +1,53 @@
+esphome:
+  name: click-doubleclick-longpress
+
+esp32:
+  board: esp32doit-devkit-v1
+
+logger:
+
+output:
+  - id: red_led
+    platform: gpio
+    pin: 18
+  - id: green_led
+    platform: gpio
+    pin: 19
+  - id: blue_led
+    platform: gpio
+    pin: 21
+
+binary_sensor:
+  - id: pushbutton
+    platform: gpio
+    pin:
+      number: 14
+      mode: INPUT_PULLUP
+      inverted: true
+    on_press:
+      then:
+        - logger.log: Hello World
+          
+        - switch.turn_on: red_led_switch
+    on_release:
+      then:
+        - delay: 2s
+        - switch.turn_off: red_led_switch  
+switch:
+  - platform: template
+    id: red_led_switch
+    lambda: |-
+      if (id(pushbutton).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      - output.turn_on: red_led
+
+    turn_off_action:
+      - output.turn_off: red_led
+
+
+
+
