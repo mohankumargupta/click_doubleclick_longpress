@@ -24,14 +24,14 @@
       "id": "led3",
       "top": -51.6,
       "left": 272.6,
-      "attrs": { "color": "red" }
+      "attrs": { "color": "blue" }
     },
     {
       "type": "wokwi-led",
       "id": "led1",
       "top": -51.6,
       "left": 195.8,
-      "attrs": { "color": "red" }
+      "attrs": { "color": "green" }
     }
   ],
   "connections": [
@@ -47,13 +47,13 @@
     [ "esp:18", "bb1:2b.j", "red", [ "h0" ] ],
     [ "esp:19", "bb1:9b.j", "green", [ "h0" ] ],
     [ "esp:21", "bb1:17b.j", "blue", [ "h0" ] ],
+    [ "esp:14", "btn1:1.r", "violet", [ "h-47.85", "v-153.6" ] ],
     [ "led2:A", "bb1:2t.a", "", [ "$bb" ] ],
     [ "led2:C", "bb1:1t.a", "", [ "$bb" ] ],
-    [ "led3:A", "bb1:17t.a", "", [ "$bb" ] ],
-    [ "led3:C", "bb1:16t.a", "", [ "$bb" ] ],
     [ "led1:A", "bb1:9t.a", "", [ "$bb" ] ],
     [ "led1:C", "bb1:8t.a", "", [ "$bb" ] ],
-    [ "esp:14", "btn1:1.r", "violet", [ "h-47.85", "v-153.6" ] ]
+    [ "led3:A", "bb1:17t.a", "", [ "$bb" ] ],
+    [ "led3:C", "bb1:16t.a", "", [ "$bb" ] ]
   ],
   "dependencies": {}
 }
