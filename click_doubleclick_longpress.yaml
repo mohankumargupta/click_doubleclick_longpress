@@ -34,7 +34,7 @@ binary_sensor:
       - delayed_on_off: 20ms
     on_double_click:
       then:
-        - logger.log: double clicked!
+        - logger.log: double clicked detected!
         - binary_sensor.template.publish:
             id: pushbutton_longpress
             state: false        
@@ -67,6 +67,16 @@ binary_sensor:
         - binary_sensor.template.publish:
             id: pushbutton_longpress
             state: false
+        - if:
+            condition:
+              lambda: 'return id(clicks) == 0;'
+            then:
+              - logger.log: long press detected!
+        - if:
+            condition:
+              lambda: 'return id(clicks) == 1;'
+            then:
+              - logger.log: single click detected!
 
 
 
