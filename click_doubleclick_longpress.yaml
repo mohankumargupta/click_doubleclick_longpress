@@ -23,6 +23,17 @@ output:
     platform: gpio
     pin: 21
 
+light:
+  - id: red
+    platform: binary
+    output: red_led
+  - id: green
+    platform: binary
+    output: green_led
+  - id: blue
+    platform: binary
+    output: blue_led
+  
 binary_sensor:
   - id: pushbutton
     platform: gpio
@@ -38,6 +49,7 @@ binary_sensor:
         - binary_sensor.template.publish:
             id: pushbutton_longpress
             state: false        
+        - light.toggle: green
     on_press:
       then:
         - logger.log: on_press
@@ -72,11 +84,13 @@ binary_sensor:
               lambda: 'return id(clicks) == 0;'
             then:
               - logger.log: long press detected!
+              - light.toggle: blue
         - if:
             condition:
               lambda: 'return id(clicks) == 1;'
             then:
               - logger.log: single click detected!
+              - light.toggle: red
 
 
 
