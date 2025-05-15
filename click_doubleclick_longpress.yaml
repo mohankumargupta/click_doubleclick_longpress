@@ -6,6 +6,12 @@ esp32:
 
 logger:
 
+globals:
+  - id: clicks
+    type: int
+    restore_value: no
+    initial_value: '0'
+
 output:
   - id: red_led
     platform: gpio
@@ -24,36 +30,49 @@ binary_sensor:
       number: 14
       mode: INPUT_PULLUP
       inverted: true
+    filters:
+      - delayed_on_off: 20ms
     on_double_click:
       then:
         - logger.log: double clicked!
-    # on_click:
-    #   then:
-    #     - logger.log: clicked!
-    # on_press:
-    #   then:
-    #     - logger.log: Hello World
-          
-    #     - switch.turn_on: red_led_switch
-    # on_release:
-    #   then:
-    #     - delay: 2s
-    #     - switch.turn_off: red_led_switch  
-switch:
-  - platform: template
-    id: red_led_switch
-    lambda: |-
-      if (id(pushbutton).state) {
-        return true;
-      } else {
-        return false;
-      }
-    turn_on_action:
-      - logger.log: switch on
+        - binary_sensor.template.publish:
+            id: pushbutton_longpress
+            state: false        
+    on_press:
+      then:
+        - logger.log: on_press
+        - globals.set:
+            id: clicks
+            value: '0'
+        - binary_sensor.template.publish:
+            id: pushbutton_longpress
+            state: true
+    on_release:
+      then:
+        - logger.log: on_release
+        - globals.set:
+            id: clicks
+            value: !lambda |-
+              return id(clicks) + 1;
 
-    turn_off_action:
-      - logger.log: switch off
-  
+  - id: pushbutton_longpress
+    platform: template
+    filters:
+      - delayed_on: 1.5s
+    on_press:
+      then:
+        - logger.log:
+            format: "Number of clicks: %d"
+            args: ['id(clicks)']
+        - binary_sensor.template.publish:
+            id: pushbutton_longpress
+            state: false
+
+
+
+
+        
+
 
 
 
