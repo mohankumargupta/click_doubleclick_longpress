@@ -1,9 +1,10 @@
 name: ESPHome compile and release
 on:
   workflow_dispatch:
-    tag:
-      description: Release tag (eg.v0.1.0)
-      default: ''
+    inputs:
+      tag:
+        description: Release tag (eg.v0.1.0)
+        default: ''
 jobs:
   build_and_release:
     name: Build and release ESPHOME firmware
