@@ -21,7 +21,8 @@ jobs:
           yaml-file: click_doubleclick_longpress.yaml
       - name: Output folder
         run: |
-          echo "${{ steps.esphome-build.outputs.name }}"  
+          echo "${{ steps.esphome-build.outputs.name }}"
+          ls -lh "${{ steps.esphome-build.outputs.name }}" 
           
 
 
