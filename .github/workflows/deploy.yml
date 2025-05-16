@@ -1,0 +1,26 @@
+name: ESPHome compile and release
+on:
+  workflow_dispatch:
+    tag:
+      description: Release tag (eg.v0.1.0)
+      default: ''
+jobs:
+  build_and_release:
+    name: Build and release ESPHOME firmware
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Build firmware
+        uses: esphome/build-action@v7.0.0
+        id: esphome-build
+        with:
+          yaml-file: click_doubleclick_longpress.yaml
+      - name: Output folder
+        run: |
+          echo "${{ steps.esphome-build.name }}"  
+          
+
+
